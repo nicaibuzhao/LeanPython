@@ -1,0 +1,5 @@
+2020-10-09 10:22:48 AM - root - DEBUG -08 logging模块:  调试debug
+2020-10-09 10:22:48 AM - root - INFO -08 logging模块:  消息info
+2020-10-09 10:22:48 AM - root - WARNING -08 logging模块:  警告warn
+2020-10-09 10:22:48 AM - root - ERROR -08 logging模块:  错误error
+2020-10-09 10:22:48 AM - root - CRITICAL -08 logging模块:  严重critical
