@@ -31,7 +31,13 @@ import time
 class MyProcess(Process):
     def run(self):
         print("hello bf girl")
-        time.sleep
+        time.sleep(3)
+        print("get out!")
+
+if __name__ == '__main__':
+    p = MyProcess()
+    p.start()
+    print("主")
 
 
 

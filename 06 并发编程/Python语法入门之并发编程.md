@@ -102,7 +102,12 @@
 
 ![image-20201019102850368](C:\Users\mingyu.ding\AppData\Roaming\Typora\typora-user-images\image-20201019102850368.png)
 
-
+```python
+# 就绪态：一切程序必须要先过就绪态才能加入运行态
+# 运行态：正在被cpu执行
+# 阻塞态：程序遇到io操作了
+# 理想：我们希望开发的程序一直处于就绪态与运行态之间
+```
 
 #### 两个重要的概念
 * 同步和异步
@@ -160,19 +165,90 @@ if __name__ == '__main__':
     # 2 开启进程
     p.start() # 告诉操作系统帮你创建一个进程
     print("主")
+
+# 第二种方式：类的继承
+
+from multiprocessing import Process
+import time
+class MyProcess(Process):
+    def run(self):
+        print("hello bf girl")
+        time.sleep(3)
+        print("get out!")
+        
+if __name__ == '__main__':
+    p = MyProcess()
+    p.start()
+    print("主")
 ```
 
+##### 总结
+```python
+# 创建进程就是在内存中申请一块内存空间将需要运行的代码丢进去
+# 一个进程对应在内存中就是一个独立的内存空间
+# 多个进程对应在内存中就是多块独立的内存空间
+# 进程与进程之间数据默认情况下是无法直接交互的，如果想要实现交互则需要第三方模块或工具
+```
+#### join方法
+join方法是让主进程的代码等待子进程
+```python
+from multiprocessing import Process
+import time
 
 
+def task(name,n):
+    print(f'{name} is running')
+    time.sleep(n)
+    print(f'{name} is over')
 
 
+if __name__ == '__main__':
+    # 1 创建一个对象
+    p1 = Process(target=task,args=("jason",1))
+    p2 = Process(target=task,args=("egon",2))
+    p3 = Process(target=task,args=("tank",3))
+    star_time = time.time()
+    p1.start() # 告诉操作系统帮你创建一个进程，仅仅是告诉操作系统创建进程
+    p2.start()
+    p3.start()
+    # p.join() # 主进程等待子进程p运行结束之后在继续往后运行
+    p1.join()
+    p2.join()
+    p3.join()
+    print("主",time.time())
+```
+#### 进程之间数据相互隔离
+```python
+from multiprocessing import Process
+money = 100
+def task():
+    global money # 局部变量修改全局比阿亮
+    money = 666
+    print("子进程",money)
+
+if __name__ == '__main__':
+    p = Process(target=task)
+    p.start()
+    p.join()
+    print(money)
+```
+
+ps：人工只能相关参考资料
+科大讯飞、百度api、图灵机器人
 
 
+#### 进程对象及其他方法
+ps:pycharm注册码获取地址：http://idea.medeming.com/jets/
 
-
-
-
-
+```python
+# 一台计算机上面运行很多进程，那么计算机是如何区分并故哪里这些进程服务端呢？
+#    计算机会给每一个运行的进程分配一个PID号
+# 如何查看：
+#   windows电脑，加入cmd输入tasklist可以查看
+#       tasklist |findstr pid查看具体的进程
+#   linux电脑，终端输入ps aux
+#       ps aux|grep PID查看具体的进程
+```
 
 
 
