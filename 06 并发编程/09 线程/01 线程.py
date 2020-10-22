@@ -39,4 +39,5 @@ class MyThread(Thread):
 if __name__ == '__main__':
     t = MyThread("alex")
     t.start()
+    t.join() # 等待子线程结束之后，主线程才可以执行
     print("主")
