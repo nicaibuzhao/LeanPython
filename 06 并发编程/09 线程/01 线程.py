@@ -19,25 +19,31 @@ from threading import Thread
 # # 但是我们还是习惯性的将启动命令写在main下面
 # # if __name__ == '__main__':
 # #     pass
-
+import random
 
 from multiprocessing import Process
-from threading import Thread
-import time
+# from threading import Thread
+# import time
+#
+# class MyThread(Thread):
+#     def __init__(self,name):
+#         super().__init__()
+#         self.name = name
+#
+#
+#     def run(self):
+#         print(f"{self.name}3333333333333")
+#         time.sleep(1)
+#         print("sfsfasfafa")
+#
+# if __name__ == '__main__':
+#     t = MyThread("alex")
+#     t.start()
+#     t.join() # 等待子线程结束之后，主线程才可以执行
+#     print("主")
 
-class MyThread(Thread):
-    def __init__(self,name):
-        super().__init__()
-        self.name = name
 
-
-    def run(self):
-        print(f"{self.name}3333333333333")
-        time.sleep(1)
-        print("sfsfasfafa")
-
-if __name__ == '__main__':
-    t = MyThread("alex")
-    t.start()
-    t.join() # 等待子线程结束之后，主线程才可以执行
-    print("主")
+print(random.randint(0,4))
+print(random.randint(0,4))
+print(random.randint(0,4))
+print(random.randint(0,4))
