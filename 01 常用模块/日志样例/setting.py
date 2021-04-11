@@ -1,4 +1,4 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 # @Author : mingyu.ding
 # @PROJECT: untitled
 # @Time : 2020/10/9 10:31
@@ -8,6 +8,7 @@ logging配置
 """
 
 import os
+import datetime
 
 # 1、定义三种日志输出格式，日志中可能用到的格式化串如下
 # %(name)s Logger的名字
@@ -34,9 +35,12 @@ simple_format = '[%(levelname)s][%(asctime)s][%(filename)s:%(lineno)d]%(message)
 
 test_format = '%(asctime)s] %(message)s'
 
+# 根据日期生成日志文件
+log_file = datetime.datetime.now().strftime('%Y%m%d') + ".log"
+
 # 3、日志配置字典
 LOGGING_DIC = {
-    'version': 1,
+    'version': 1.0,
     'disable_existing_loggers': False,
     'formatters': {
         'standard': {
@@ -52,13 +56,13 @@ LOGGING_DIC = {
     'filters': {},
     # handlers 是日志的接收者，不同的是handler会将日志输出到不同的位置
     'handlers': {
-        #打印到终端的日志
+        # 打印到终端的日志
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',  # 打印到屏幕
             'formatter': 'simple'
         },
-        #打印到文件的日志,收集info及以上的日志
+        # 打印到文件的日志,收集info及以上的日志
         'default': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',  # 保存到文件,日志轮转
@@ -66,8 +70,9 @@ LOGGING_DIC = {
             # 可以定制日志文件路径
             # BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # log文件的目录
             # LOG_PATH = os.path.join(BASE_DIR,'a1.log')
-            'filename': 'a1.log',  # 日志文件
-            'maxBytes': 1024*1024*5,  # 日志大小 5M
+            # 'filename': 'a1.log',  # 日志文件
+            'filename': log_file,  # 日志文件
+            'maxBytes': 1024 * 1024 * 5,  # 日志大小 5M
             'backupCount': 5,
             'encoding': 'utf-8',  # 日志文件的编码，再也不用担心中文log乱码了
         },
@@ -80,20 +85,20 @@ LOGGING_DIC = {
         },
     },
     'loggers': {
-        #logging.getLogger(__name__)拿到的logger配置
+        # logging.getLogger(__name__)拿到的logger配置
         'kkk': {
-            'handlers': ['default', 'console','other'],  # 这里把上面定义的两个handler都加上，即log数据既写入文件又打印到屏幕
-            'level': 'DEBUG', # loggers(第一层日志级别关限制)--->handlers(第二层日志级别关卡限制)
+            'handlers': ['default', 'console', 'other'],  # 这里把上面定义的两个handler都加上，即log数据既写入文件又打印到屏幕
+            'level': 'DEBUG',  # loggers(第一层日志级别关限制)--->handlers(第二层日志级别关卡限制)
             'propagate': False,  # 默认为True，向上（更高level的logger）传递，通常设置为False即可，否则会一份日志向上层层传递
         },
         'bbb': {
-            'handlers': ['other',],
+            'handlers': ['other', ],
             'level': 'DEBUG',
             'propagate': False,
         },
         # logger底层循环遍历是否存在字典中，如果不存在则使用 " "对应的值
         '': {
-            'handlers': ['other',],
+            'handlers': ['default'],
             'level': 'DEBUG',
             'propagate': False,
         },

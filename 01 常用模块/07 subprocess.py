@@ -5,9 +5,9 @@
 
 import subprocess
 
-# obj = subprocess.Popen("dir",shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-#
-# res = obj.stdout.read().decode("gbk")
-# print(res)
-# err_res = obj.stderr.read()
-# print(err_res)
+obj = subprocess.Popen("dir",shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+
+res = obj.stdout.read().decode("gbk")
+print(res)
+err_res = obj.stderr.read()
+print(err_res)
